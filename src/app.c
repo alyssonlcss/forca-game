@@ -9,17 +9,17 @@
         * Yan Rodrigues da Silva................| Mª: 495532
     Tema......: Joga da Forca                 
     Assuntos..: 
-        * Estrurtura sequencial..1
-        * Estrura Condicional....2
-        * Estrutuea de repetição.3
-        * Vetores................4
-        * String.................5
-        * Matrizes...............6
-        * Funções................7
-        * Ponteiros..............8
-        * Alocação dinâmica......9
+        * Estrurtura sequencial..01
+        * Estrura Condicional....02
+        * Estrutura de repetição.03
+        * Vetores................04
+        * String.................05
+        * Matrizes...............06
+        * Funções................07
+        * Ponteiros..............08
+        * Alocação dinâmica......09
         * Arquivos...............10
-        * Comando de desvios.....11
+        * Comandos de desvios....11
         * Structs................12
 */
 
@@ -40,7 +40,7 @@ typedef struct {
     int  num;
 } Jogador;
 
-//Procedimento: Inicio de execução
+//Procedimento: Inicio de execução, menu de Bem vindo.
 void inicio(Jogador player) {
     puts("\n****************************************");
     puts("*     BEM VINDO AO JOGO DA FORCA!!     *");
@@ -51,14 +51,14 @@ void inicio(Jogador player) {
 // Procedimento: Exibição do menu de temas.
 void menu() {
     puts("\n*************************");
-    puts("*  Opcoes de temas:     *");
-    puts("*  [1] - Pokemons       *");
-    puts("*  [2] - Frutas         *");
-    puts("*  [3] - Filmes         *");
-    puts("*  [4] - Jogos          *");
-    puts("*  [5] - Animes         *");
-    puts("*  [0] - Exit           *");
-    puts("*************************");
+    puts("*  Opcoes de temas:     *  ");
+    puts("*  [1] - Pokemons       *  ");
+    puts("*  [2] - Frutas         *  ");
+    puts("*  [3] - Filmes         *  ");
+    puts("*  [4] - Jogos          *  ");
+    puts("*  [5] - Animes         *  ");
+    puts("*  [0] - Exit           *  ");
+    puts("*************************  ");
 }
 
 // Procedimento: Mostra o bonequinho de acordo com os erros do usuário.
@@ -136,6 +136,7 @@ void desenhar_personagem(int erros) {
     }
     puts("");
 }
+
 // Função: responsável pelo sorteio de uma número [0-14]
 //         que vai representar posição da palavra sorteada.
 int sortear() {
@@ -143,7 +144,8 @@ int sortear() {
     int numero = rand() % 15; 
     return numero;
 }
-// Procedimento: res(ponsável por ler o arquivo referente ao tema escolhido
+
+// Procedimento: responsável por ler o arquivo referente ao tema escolhido
 void importar_strings(FILE* arquivo, char* tema[], char path[], int *numero_sorteado) {
     char message[100];
     int count = 0, length = 0, i; 
@@ -161,8 +163,8 @@ void importar_strings(FILE* arquivo, char* tema[], char path[], int *numero_sort
 
     fclose(arquivo);
 }
-// Função: verifica se o usuário degitou caractere 
-//               já digitado anteriormente.
+
+// Função: verifica se o usuário degitou caractere já digitado anteriormente.
 char entrada_e_verificacao(char letra_repetida[], int* n) {
     // Dicionário de dados:
     char letra;
@@ -175,27 +177,24 @@ char entrada_e_verificacao(char letra_repetida[], int* n) {
         printf("\nEntre com uma letra: ");
         scanf("%c",&letra);
     
-        // Converte letra MAÍSCULA para minúscula.
-        if (!(letra >= 97 && letra <= 122) && letra >= 56) letra = letra + 32;
+        if (!(letra >= 97 && letra <= 122)) letra = letra + 32;
         
 		letra_repetida[*n] = letra;
 
-        if (*n != 0) {
             for(i = 0; i < *n; i++){
                 if(letra_repetida[i] == letra) {
                     existe = 1;
                     printf("Letra repetida, tente novamente!\n");
                 }
             }
-        }
     }while(existe == 1);
     (*n)++;
-
+    
     return letra;
 }
 
 // Procedimento: permite o usuário realizar uma jogada.
-void jogada(char* tema[], int* numero_sorteado, Jogador player) {
+void jogada (char* tema[], int* numero_sorteado, Jogador player) {
     // Dicionário de dados:
     int  tamanho, existe, contador_underline;
     int  status_erro = 0, contador_erros = 0, n = 0;
@@ -207,7 +206,7 @@ void jogada(char* tema[], int* numero_sorteado, Jogador player) {
 
     tamanho = strlen(tema[*numero_sorteado]); 
     tamanho -= 1;
-    aux = (char*) malloc((tamanho+1) * sizeof(char));
+    aux = (char*) malloc ((tamanho+1) * sizeof(char));
     for(i = 0; i < tamanho; i++) {
         aux[i] = '_';
         printf("%c ", aux[i]);
@@ -255,15 +254,16 @@ void jogada(char* tema[], int* numero_sorteado, Jogador player) {
     }
     free(aux);
 }
+
 // Procedimento: responsável por desalocar memória.
 void desalocando_memoria(char* tema[]) {
     for(int i = 0; i < 16; i++) {
         free(tema[i]);
     }
 }
+
 // Função: principal
 int main(void) {   
-
     // Dicionário de dados:
     FILE* pokemons_aq, *frutas_aq, *filmes_aq, *jogos_aq, *animes_aq;   
     char* pokemons[16], *frutas[16], *filmes[16], *jogos[16], *animes[16];
